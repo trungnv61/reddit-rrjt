@@ -1,10 +1,13 @@
-import "./App.css";
 import Header from "./Components/Header/Header";
+import "./App.css";
+import { useState } from "react";
+import EditPage from "./Components/Edit/EditPage";
 
 function App() {
+  const [edit, setEdit] = useState(false);
   return (
     <div className="App">
-      <Header />
+      {edit ? <EditPage /> : <Header setEdit={setEdit} />}
     </div>
   );
 }
