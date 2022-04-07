@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { update } from "../../redux/userSlice";
+import { updateTheme } from "../../redux/themeSlice";
 import Input from "../InputField/Input";
 import "./edit.css";
 const EditPage = ({ setEdit }) => {
@@ -14,18 +17,32 @@ const EditPage = ({ setEdit }) => {
     "       https://preview.redd.it/26s9eejm8vz51.png?auto=webp&s=e38d32ee0ffa0666fade2abd62ed59037c119990    ",
   ];
 
+  const user = useSelector((state) => state.user);
+  const userTheme = useSelector((state) => state.userTheme);
+  const dispatch = useDispatch();
+
   // Five input = Five useState
-  const [name, setName] = useState("trung");
-  const [age, setAge] = useState(20);
-  const [about, setAbout] = useState("I SE student");
+  const [name, setName] = useState(user.name);
+  const [age, setAge] = useState(user.age);
+  const [about, setAbout] = useState(user.about);
   const [theme, setTheme] = useState("#ff9051");
-  const [url, setUrl] = useState(
-    "https://preview.redd.it/rrz3hmsxcll71.png?width=640&crop=smart&auto=webp&s=87cc5ed38d8f088ef9fffef7a4c5756b64309d6a"
-  );
+  const [url, setUrl] = useState(user.avaUrl);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setEdit(false);
+    const updateUser = {
+      name: name,
+      age: age,
+      about: about,
+      avaUrl: url,
+    };
+    dispatch(update(updateUser));
+
+    const updateThemes = {
+      themeBackgroundColor: theme,
+    };
+    dispatch(updateTheme(updateThemes));
   };
   return (
     <>
@@ -34,11 +51,11 @@ const EditPage = ({ setEdit }) => {
           <button className="close">SAVE</button>
           <div className="edit-profile">Edit profile</div>
           <div className="input-container">
-            <Input label="Display name" data={name} setData={setName} />
-            <Input label="Age" data={age} setData={setAge} />
+            <Input label="Display name" data={user.name} setData={setName} />
+            <Input label="Age" data={user.age} setData={setAge} />
             <Input
               label="About"
-              data={about}
+              data={user.about}
               setData={setAbout}
               inputType="textarea"
               classStyle="input-about"
