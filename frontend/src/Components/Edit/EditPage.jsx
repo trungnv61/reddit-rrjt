@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import Input from "../InputField/Input";
 import "./edit.css";
-const EditPage = () => {
+const EditPage = ({ setEdit }) => {
   const avaUrl = [
     "    https://preview.redd.it/rrz3hmsxcll71.png?width=640&crop=smart&auto=webp&s=87cc5ed38d8f088ef9fffef7a4c5756b64309d6a",
     "  https://preview.redd.it/fc9k38jwfwv51.png?auto=webp&s=9ce3d4c488091bb21969fd0fad7a6d89e4bfc50d        ",
@@ -21,29 +22,47 @@ const EditPage = () => {
   const [url, setUrl] = useState(
     "https://preview.redd.it/rrz3hmsxcll71.png?width=640&crop=smart&auto=webp&s=87cc5ed38d8f088ef9fffef7a4c5756b64309d6a"
   );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setEdit(false);
+  };
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="edit-container">
           <button className="close">SAVE</button>
           <div className="edit-profile">Edit profile</div>
           <div className="input-container">
-            <label htmlFor="">Display Name</label>
-            <input type="text" placeholder="abc" />
-            <label htmlFor="">Age</label>
-            <input type="text" placeholder="20" />
-            <label htmlFor="">About</label>
-            <textarea className="input-about"></textarea>
+            <Input label="Display name" data={name} setData={setName} />
+            <Input label="Age" data={age} setData={setAge} />
+            <Input
+              label="About"
+              data={about}
+              setData={setAbout}
+              inputType="textarea"
+              classStyle="input-about"
+            />
           </div>
           <label>Profile Picture</label>
           <div className="input-image-container">
             {avaUrl.map((url, index) => (
-              <img src={url} key={index} className="input-image" alt="" />
+              <img
+                onClick={(e) => setUrl(e.target.src)}
+                src={url}
+                key={index}
+                className="input-image"
+                alt=""
+              />
             ))}
           </div>
           <div className="theme-container">
             <label>Theme</label>
-            <input type="color" className="theme-color" />
+            <input
+              type="color"
+              className="theme-color"
+              onChange={(e) => setTheme(e.target.value)}
+            />
           </div>
         </div>
       </form>
