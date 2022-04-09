@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { update } from "../../redux/userSlice";
-import { updateTheme } from "../../redux/themeSlice";
 import Input from "../InputField/Input";
+import { updatedUserTheme } from "../../redux/apiRequests";
+import { updatedUser } from "../../redux/apiRequests";
 import "./edit.css";
 const EditPage = ({ setEdit }) => {
   const avaUrl = [
@@ -37,12 +37,11 @@ const EditPage = ({ setEdit }) => {
       about: about,
       avaUrl: url,
     };
-    dispatch(update(updateUser));
-
+    updatedUser(updateUser, dispatch);
     const updateThemes = {
       themeBackgroundColor: theme,
     };
-    dispatch(updateTheme(updateThemes));
+    updatedUserTheme(updateThemes, dispatch);
   };
   return (
     <>
