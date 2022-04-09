@@ -25,7 +25,7 @@ const EditPage = ({ setEdit }) => {
   const [name, setName] = useState(user.name);
   const [age, setAge] = useState(user.age);
   const [about, setAbout] = useState(user.about);
-  const [theme, setTheme] = useState("#ff9051");
+  const [theme, setTheme] = useState(userTheme.themeBackgroundColor);
   const [url, setUrl] = useState(user.avaUrl);
 
   const handleSubmit = (e) => {
