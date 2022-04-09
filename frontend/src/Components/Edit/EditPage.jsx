@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Input from "../InputField/Input";
-import { updatedUserTheme } from "../../redux/apiRequests";
-import { updatedUser } from "../../redux/apiRequests";
+import { updateUserApi } from "../../redux/apiRequests";
+import { updateThemeApi } from "../../redux/apiReqTheme";
 import "./edit.css";
+
 const EditPage = ({ setEdit }) => {
   const avaUrl = [
     "    https://preview.redd.it/rrz3hmsxcll71.png?width=640&crop=smart&auto=webp&s=87cc5ed38d8f088ef9fffef7a4c5756b64309d6a",
@@ -37,11 +38,12 @@ const EditPage = ({ setEdit }) => {
       about: about,
       avaUrl: url,
     };
-    updatedUser(updateUser, dispatch);
+    updateUserApi(updateUser, dispatch);
+
     const updateThemes = {
       themeBackgroundColor: theme,
     };
-    updatedUserTheme(updateThemes, dispatch);
+    updateThemeApi(updateThemes, dispatch);
   };
   return (
     <>
