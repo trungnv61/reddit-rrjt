@@ -17,7 +17,7 @@ function App() {
       {pending && <p className="loading">Loading...</p>}
       {!edit && error && <p className="error">Error when fetch data ! </p>}
       <Footer openPost={openPost} setOpenPost={setOpenPost} />
-      {openPost && <MakePost />}
+      {openPost && <MakePost setOpenPost={setOpenPost} />}
     </div>
   );
 }

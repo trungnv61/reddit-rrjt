@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Input from "../InputField/Input";
+import React from "react";
 import "./footer.css";
 const Footer = ({ openPost, setOpenPost }) => {
   return (
