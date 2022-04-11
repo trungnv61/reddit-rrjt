@@ -5,6 +5,7 @@ import EditPage from "./Components/Edit/EditPage";
 import { useSelector } from "react-redux";
 import Footer from "./Components/Footer/Footer";
 import MakePost from "./Components/Posts/MakePost";
+import Posts from "./Components/Posts/Posts";
 
 function App() {
   const [edit, setEdit] = useState(false);
@@ -13,11 +14,24 @@ function App() {
   const error = useSelector((state) => state.user.error);
   return (
     <div className="App">
-      {edit ? <EditPage setEdit={setEdit} /> : <Header setEdit={setEdit} />}
+      {edit ? (
+        <EditPage setEdit={setEdit} />
+      ) : !edit && !openPost ? (
+        <>
+          <Header setEdit={setEdit} />
+          <div className="post-container">
+            <Posts />
+          </div>
+          <Footer openPost={openPost} setOpenPost={setOpenPost} />
+        </>
+      ) : (
+        <>
+          <Header setEdit={setEdit} />
+          <MakePost setOpenPost={setOpenPost} />
+        </>
+      )}
       {pending && <p className="loading">Loading...</p>}
       {!edit && error && <p className="error">Error when fetch data ! </p>}
-      <Footer openPost={openPost} setOpenPost={setOpenPost} />
-      {openPost && <MakePost setOpenPost={setOpenPost} />}
     </div>
   );
 }
